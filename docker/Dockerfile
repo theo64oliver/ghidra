@@ -51,9 +51,18 @@ RUN /ghidra/Ghidra/Features/BSim/support/make-postgres.sh \
 FROM base AS runtime
 
 # install additional dependencies needed for running ghidra
-RUN apk add openssl openssh-client \
-        xhost musl-locales musl-locales-lang
-        
+RUN apk add --no-cache \
+        openssl \
+        openssh-client \
+        xhost \
+        musl-locales \
+        musl-locales-lang \
+        gdb \
+        gcc-arm-none-eabi \
+        binutils-arm-none-eabi \
+        busybox-extras \
+        vim
+ 
 USER ghidra
 WORKDIR /ghidra
 COPY --chown=ghidra:ghidra --from=build /ghidra /ghidra
